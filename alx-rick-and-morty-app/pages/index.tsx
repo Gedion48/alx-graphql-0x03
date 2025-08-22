@@ -3,8 +3,9 @@ import { GET_EPISODES } from "@/graphql/queries";
 import { EpisodeProps } from "@/interfaces";
 import EpisodeCard from "@/components/common/EpisodeCard";
 import { useEffect, useState } from "react";
+import ErrorProneComponent from "@/components/ErrorProneComponent";
 
-// 🔴 Buggy test component for ErrorBoundary
+// Buggy test component for optional testing
 const BuggyComponent: React.FC = () => {
   const [shouldCrash, setShouldCrash] = useState(false);
 
@@ -27,9 +28,7 @@ const BuggyComponent: React.FC = () => {
 const Home: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const { loading, error, data, refetch } = useQuery(GET_EPISODES, {
-    variables: {
-      page: page,
-    },
+    variables: { page },
   });
 
   useEffect(() => {
@@ -89,8 +88,10 @@ const Home: React.FC = () => {
           </button>
         </div>
 
-        {/* ✅ Buggy Test Component for ErrorBoundary */}
+        {/* Test ErrorBoundary */}
         <BuggyComponent />
+        {/* Optional: Render ErrorProneComponent directly */}
+        {/* <ErrorProneComponent /> */}
       </main>
 
       {/* Footer */}
